@@ -1,51 +1,51 @@
-# Active Directory User ProxyAddresses Update
+# Active Directory ProxyAddresses Bulk Update
 
-This project consists of two PowerShell scripts for managing Active Directory user ProxyAddresses: one for fetching user information and another for bulk updating ProxyAddresses using a CSV file.
+## Overview
+
+This repository contains PowerShell scripts to facilitate bulk updates of ProxyAddresses in Active Directory. Administrators can use these scripts to generate a CSV file that contains user data, make required updates to the user information, and apply bulk changes to the corresponding user accounts in Active Directory.
+
+## Features
+
+- **CSV Format:** The CSV file should include columns for Display Name, SamAccountName, and ProxyAddresses.
+- **ProxyAddresses Format:** Multiple proxy addresses can be separated by a semicolon (`;`). Ensure that each proxy address has the correct format, e.g., `smtp:user@example.com`.
 
 ## Prerequisites
 
-- PowerShell installed on your machine.
-- Sufficient permissions to execute PowerShell scripts and update Active Directory user properties.
+- **Active Directory Module:** Ensure that the Active Directory module is available on the machine where the scripts will be executed.
 
-## Scripts
+```powershell
+Set-ExecutionPolicy RemoteSigned
+Import-Module ActiveDirectory
+```
 
-### 1. Fetch AD Users Script
+## Usage
 
-#### Description
+1. **Fetch Users from AD:**
 
-This script fetches Active Directory user information, including names, SamAccountNames, and ProxyAddresses, and exports the data to a CSV file.
+   Execute the `fetch_AD_proxyAddresses.ps1` script to generate an initial CSV file containing user data.
 
-#### Usage
+   ```powershell
+   .\fetch_AD_proxyAddresses.ps1
+   ```
 
-1. Open PowerShell.
-2. Set the execution policy: `Set-ExecutionPolicy RemoteSigned`.
-3. Import the Active Directory module: `Import-Module ActiveDirectory`.
-4. Run the script: `.\fetch_AD_Users.ps1`.
+   The generated CSV file will be located at `C:\Temp\AD_users_proxyAddresses.csv`.
 
-### 2. Bulk Update ProxyAddresses Script
+2. **Update ProxyAddresses:**
 
-#### Description
+   Edit the generated CSV file (`AD_users_proxyAddresses.csv`) with the required changes. Once the CSV is updated, execute the `update_AD_proxyAddresses.ps1` script.
 
-This script reads an updated CSV file containing user information and updates their ProxyAddresses in Active Directory.
+   ```powershell
+   .\update_AD_proxyAddresses.ps1
+   ```
 
-#### Usage
+   The script will read the updated CSV and update ProxyAddresses in Active Directory.
 
-1. Open PowerShell.
-2. Set the execution policy: `Set-ExecutionPolicy RemoteSigned`.
-3. Import the Active Directory module: `Import-Module ActiveDirectory`.
-4. Run the script: `.\update_Proxy_Address.ps1`.
+## Important Notes
 
-## Instructions
-
-1. Run the "Fetch AD Users" script to retrieve user information and generate the initial CSV file (`AD_Users.csv`).
-2. Manually update the CSV file with the desired changes to the ProxyAddresses column.
-3. Run the "Bulk Update ProxyAddresses" script to apply the changes to Active Directory.
-
-## Notes
-
-- Ensure that you have the necessary permissions to execute these scripts and update Active Directory user properties.
-- Make backups or test in a non-production environment before applying changes to production.
+- **Backup:** Before running the update script in a production environment, ensure that you have a backup or a way to rollback changes.
+- **Testing:** Test the scripts in a controlled environment before applying changes to production.
+- **Permissions:** The account running the script must have the necessary permissions to update user accounts in Active Directory.
 
 ## License
 
-This project is licensed under the [MIT License](LICENSE).
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
