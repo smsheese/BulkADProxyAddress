@@ -1,13 +1,13 @@
-# Active Directory ProxyAddresses Bulk Update
+# Active Directory proxyAddresses Bulk Update
 
 ## Overview
 
-This repository contains PowerShell scripts to facilitate bulk updates of ProxyAddresses in Active Directory. Administrators can use these scripts to generate a CSV file that contains user data, make required updates to the user information, and apply bulk changes to the corresponding user accounts in Active Directory.
+This repository contains PowerShell scripts to facilitate bulk updates of proxyAddresses in Active Directory. Administrators can use these scripts to generate a CSV file that contains user data, make required updates to the user information, and apply bulk changes to the corresponding user accounts in Active Directory.
 
 ## Features
 
-- **CSV Format:** The CSV file should include columns for Display Name, SamAccountName, and ProxyAddresses.
-- **ProxyAddresses Format:** Multiple proxy addresses can be separated by a semicolon (`;`). Ensure that each proxy address has the correct format, e.g., `smtp:user@example.com`.
+- **CSV Format:** The CSV file should include columns for Display Name, SamAccountName, and proxyAddresses.
+- **proxyAddresses Format:** Multiple proxy addresses can be separated by a semicolon (`;`). Ensure that each proxy address has the correct format, e.g., `smtp:user@example.com`.
 
 ## Prerequisites
 
@@ -30,7 +30,7 @@ Import-Module ActiveDirectory
 
    The generated CSV file will be located at `C:\Temp\AD_users_proxyAddresses.csv`.
 
-2. **Update ProxyAddresses:**
+2. **Update proxyAddresses:**
 
    Edit the generated CSV file (`AD_users_proxyAddresses.csv`) with the required changes. Once the CSV is updated, execute the `update_AD_proxyAddresses.ps1` script.
 
@@ -38,7 +38,7 @@ Import-Module ActiveDirectory
    .\update_AD_proxyAddresses.ps1
    ```
 
-   The script will read the updated CSV and update ProxyAddresses in Active Directory.
+   The script will read the updated CSV and update proxyAddresses in Active Directory.
 
 ## Important Notes
 
