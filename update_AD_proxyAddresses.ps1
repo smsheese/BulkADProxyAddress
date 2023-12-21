@@ -1,4 +1,3 @@
-﻿Set-ExecutionPolicy RemoteSigned
 Import-Module ActiveDirectory
 
 # Read the updated CSV and update users in AD
@@ -12,10 +11,12 @@ foreach ($user in $updatedUsers) {
             # Ensure that each proxy address has the correct format
             $proxyAddresses = $proxyAddresses | ForEach-Object { if ($_ -notmatch '^smtp:') { "smtp:$_" } else { $_ } }
             
-            # Convert $proxyAddresses to a string before updating
-            $proxyAddressesAsString = $proxyAddresses -join ";"
+            # Convert $proxyAddresses to a string array before updating
+            $proxyAddresses = $proxyAddresses | ForEach-Object { $_.Trim() } # Trim whitespace from each address
+            
+            # Now $proxyAddresses is an array of strings, which is what Set-ADUser expects for the ProxyAddresses field
+            Set-ADUser -Identity $user.SamAccountName -Replace @{ProxyAddresses=$proxyAddresses}
 
-            Set-ADUser -Identity $user.SamAccountName -Replace @{ProxyAddresses=$proxyAddressesAsString}
         } catch {
             Write-Error "Failed to update user $($user.SamAccountName): $_"
         }
